@@ -3,6 +3,8 @@ WebChat
 
 Super basic Node-based chat client using Express.js and Socket.io.
 
+A slightly improved version of [this](http://net.tutsplus.com/tutorials/javascript-ajax/real-time-chat-with-nodejs-socket-io-and-expressjs/)
+
 ## Installation
 Clone this repo by running `git clone git://github.com/frxnz/WebChat.git`
 
