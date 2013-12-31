@@ -45,9 +45,9 @@ $(function() {
                 time, timestamp, username;
 
             for(var i=0; i<messages.length; i++) {
-                username  = messages[i].username ? messages[i].username : 'no one'
+                username  = messages[i].username ? messages[i].username : 'no one';
                 time      = messages[i].timestamp || new Date();
-                timestamp = messages[i].timestamp || time.getHours() + ':' + time.getMinutes();
+                timestamp = messages[i].timestamp || time.getHours() + ':' + (time.getMinutes() < 10 ? '0' + time.getMinutes() : time.getMinutes());
                 html      = html + '<div><strong>' + username + '</strong> ' +
                             messages[i].message + '<time>' + timestamp + '</time></div>';
 
@@ -60,6 +60,7 @@ $(function() {
 
             if (Notifications && notification) {
                 notification = Notifications.createNotification('https://scontent-a-lga.xx.fbcdn.net/hphotos-ash2/562136_10150670320458279_1124901033_n.jpg', notify.title, notify.body);
+				notification.onclick = function(x) { window.focus(); this.cancel(); };
                 notification.show();
             }
 
@@ -80,6 +81,10 @@ $(function() {
             } else {
                 text = text.replace(/</g, '&lt;');
             }
+			
+			if (text.match(/.jpg|.gif|.png$/)) {
+				text = '<img src="' + text + '" />';
+			}
 
             socket.emit('send', {
                 message   : text,
