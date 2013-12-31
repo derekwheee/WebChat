@@ -73,22 +73,32 @@ $(function() {
         if(!name.val() || !message.val()) {
             alert('Make sure you entered your name and a message');
         } else {
-            var text = message.val(),
-                time = new Date();
-
-            if (text === 'refresh') {
-                text = '<script>window.location.reload(true)</script>';
-            } else {
-                text = text.replace(/</g, '&lt;');
-            }
+            var text     = message.val().replace(/</g, '&lt;').split(' '),
+				user     = name.val(),
+                time     = new Date(),
+				imgRegex = new RegExp(/\b[A-Za-z0-9\/\.:]+(\.gif|\.jpg|\.png)$\b/g),
+				urlRegex = new RegExp(/\b(^http)+[A-Za-z0-9\/\.:]+(?!\.gif|\.jpg|\.png)$\b/g),
+				newArr   = [],
+				tmpStr   = '';
+				
+			user = user.replace(/</g, '&lt;');
 			
-			if (text.match(/.jpg|.gif|.png$/)) {
-				text = '<img src="' + text + '" />';
-			}
+			$(text).each(function() {
+				tmp = this;
+				tmp = tmp.replace(imgRegex, '<img src="$&" />');
+				tmp = tmp.replace(urlRegex, '<a href="$&">$&</a>');
+				newArr.push(tmp);
+			});
+				
+			text = newArr.join(' ');
+			
+			if (text === 'refresh') {
+                text = '<script>window.location.reload(true)</script>';
+            }
 
             socket.emit('send', {
                 message   : text,
-                username  : name.val(),
+                username  : user,
                 timestamp : time.getHours() + ':' + (time.getMinutes() < 10 ? '0' + time.getMinutes() : time.getMinutes())
             });
             message.val('');
