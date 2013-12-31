@@ -89,7 +89,7 @@ $(function() {
             socket.emit('send', {
                 message   : text,
                 username  : name.val(),
-                timestamp : time.getHours() + ':' + time.getMinutes()
+                timestamp : time.getHours() + ':' + (time.getMinutes() < 10 ? '0' + time.getMinutes() : time.getMinutes())
             });
             message.val('');
         }
