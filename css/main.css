@@ -1,26 +1,106 @@
 * { box-sizing: border-box; }
 
+html, body { height: 100%; margin: 0; }
+
 html { font-size: 62.5%; }
 
 body {
-    font-family: "Helvetica Neue", Helvetica, arial, sans-serif;
-    font-size: 1.6em;
+    background: tomato;
+    font-family: 'Lato', arial, sans-serif;
+    font-size: 2em;
     line-height: 1.5;
-    color: #444;
+    font-weight: 300;
+    color: white;
+    overflow-y: scroll;
+}
+
+h1 {
+    margin: -0.8em 0 0 0;
+    font-family: 'Oswald', sans-serif;
+    font-size: 8em;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    transition: margin 0.5s;
+}
+
+h1:hover {
+    margin: -0.3em 0 0 0;
+}
+
+@media all and (max-width: 720px) {
+
+    body { font-size: 1.75em; }
+    h1 {
+        font-size: 4em;
+        margin: 0;
+    }
+
+    h1:hover {
+        margin: 0;
+    }
+}
+
+@media all and (max-width: 360px) {
+    h1 {
+        font-size: 1.5em;
+    }
 }
 
 .container {
-    width: 500px;
-    margin: 50px auto 0;
+    width: 100%;
+    height: 100%;
+    height: calc(100% - 6em);
 }
 
 .chat-container {
-    width: 500px;
-    height: 300px;
-    margin: 0 0 20px;
-    padding: 10px;
-    border: solid 1px #ccc;
+    width: 90%;
+    max-width: 60em;
+    height: 50%;
+    margin: 0 auto 1em;
+    padding: 0;
+    background: white;
+    color: #444;
     overflow-y: scroll;
+}
+
+.chat-container strong {
+    margin-right: 1em;
+    text-transform: capitalize;
+    opacity: 0.2;
+    transition: opacity 0.25s;
+}
+
+.chat-container:hover strong {
+    opacity: 0.6;
+}
+
+.chat-container div {
+    position: relative;
+    padding: 0.5em 5em 0.5em 2em;
+    white-space: pre-wrap;
+}
+
+.chat-container div:nth-child(odd) {
+    background: #fafafa;
+}
+
+.chat-container time {
+    position: absolute;
+    right: 2em;
+    opacity: 0.3;
+    color: tomato;
+    transition: opacity 0.25s;
+}
+
+.chat-container:hover time {
+    opacity: 1;
+}
+
+.controls {
+    width: 90%;
+    max-width: 60em;
+    margin: 0 auto;
 }
 
 label {
@@ -29,8 +109,24 @@ label {
 }
 
 input[type='text'] {
-    width: 350px;
-    margin: 5px 0;
-    padding: 5px;
-    border: solid 1px #ccc;
+    width: 100%;
+    margin: 0.5em 0;
+    padding: 0.5em;
+    border: none;
+    border-bottom: 2px solid white;
+    background: tomato;
+    font-size: 1em;
+    color: white;
+    outline: none;
+}
+
+input[type='button'] {
+
+    margin: 0.5em 0;
+    padding: 0.5em 2em;
+    border: none;
+    background: white;
+    font-size: 1em;
+    color: tomato;
+    outline: none;
 }
