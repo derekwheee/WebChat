@@ -1,16 +1,73 @@
-var express = require("express"),
-    app = express(),
-    port = 3700;
+var express = require('express'),
+    http    = require('http'),
+    app     = express(),
+    server  = http.createServer(app),
+    io      = require('socket.io').listen(server),
+    port    = 3700;
 
 app.use(express.static(__dirname + '/'));
 
-var io = require('socket.io').listen(app.listen(port));
+var users = [
+        {
+            address : '0.0.0.0',
+            name    : 'Nobody'
+        },
+        {
+            address : '1.1.1.1',
+            name    : 'Also Nobody'
+        }
+    ],
+    methods = {
+        getTime : function () {
+            var time    = new Date(),
+                hours   = time.getHours() <= 12 ? time.getHours() : Math.abs(time.getHours() - 12),
+                minutes = time.getMinutes() < 10 ? '0' + time.getMinutes() : time.getMinutes(),
+                ampm    = time.getHours() <= 12 ? 'am' : 'pm';
+
+            return hours + ':' + minutes + ampm;
+        },
+        getUsername : function (address) {
+            var user = users.filter(function(user) {
+                return user.address === address.address;
+            });
+
+            return user[0] ? user[0].name : 'Phantom Chatter';
+        }
+    },
+    clients = [];
 
 io.sockets.on('connection', function (socket) {
-    socket.emit('message', { message: 'Welcome.' });
+
+    clients.push({
+        "id"   : socket.id,
+        "ip"   : socket.handshake.address,
+        "name" : methods.getUsername(socket.handshake.address)
+    });
+
+    socket.emit('user', clients);
+    socket.broadcast.emit('user', clients);
+
+    socket.emit('message', {
+        username  : 'No One',
+        message   : 'Welcome.',
+        timestamp : methods.getTime()
+    });
+
     socket.on('send', function (data) {
-        io.sockets.emit('message', data);
+        var message = data.message === 'refresh' ? '<script>window.location.reload(true)</script>' : data.message.replace('/</g', '&lt;');
+
+        io.sockets.emit('message', {
+            username  : data.username,
+            message   : message,
+            timestamp : methods.getTime()
+        });
+    });
+
+    socket.on('disconnect', function () {
+        clients.splice(clients.indexOf(socket.id), 1);
+        socket.broadcast.emit('user', clients);
     });
 });
 
+server.listen(port);
 console.log("Listening on port " + port);

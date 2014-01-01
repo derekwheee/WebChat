@@ -28,29 +28,17 @@ h1:hover {
     margin: -0.3em 0 0 0;
 }
 
-@media all and (max-width: 720px) {
-
-    body { font-size: 1.75em; }
-    h1 {
-        font-size: 4em;
-        margin: 0;
-    }
-
-    h1:hover {
-        margin: 0;
-    }
-}
-
-@media all and (max-width: 360px) {
-    h1 {
-        font-size: 1.5em;
-    }
+h2 {
+    margin: 0 0 0.5em;
+    font-weight: 300;
+    opacity: 0.5;
 }
 
 .container {
-    width: 100%;
+    width: 66.6667%;
     height: 100%;
     height: calc(100% - 6em);
+    float: left;
 }
 
 .chat-container {
@@ -101,6 +89,7 @@ h1:hover {
     width: 90%;
     max-width: 60em;
     margin: 0 auto;
+    padding-bottom: 2em;
 }
 
 label {
@@ -129,4 +118,73 @@ input[type='button'] {
     font-size: 1em;
     color: tomato;
     outline: none;
+}
+
+.users-container {
+    position: relative;
+    width: 33.3333%;
+    height: 100%;
+    padding: 2em;
+    background: rgba(0, 0, 0, 0.3);
+    float: right;
+}
+
+.users-container i {
+    position: absolute;
+    top: 0.5em;
+    left: 0.5em;
+}
+
+.users {
+    line-height: 1;
+}
+
+.users > div {
+    margin-bottom: 1em;
+}
+
+.users small {
+    font-size: 0.6em;
+    line-height: 1;
+    opacity: 0.5;
+}
+
+@media all and (max-width: 1000px) {
+
+    body { font-size: 1.75em; }
+    h1 {
+        font-size: 4em;
+        margin: 0;
+    }
+
+    h1:hover {
+        margin: 0;
+    }
+}
+
+@media all and (max-width: 800px) {
+    .container {
+        width: calc(100% - 2em);
+        float: none;
+    }
+
+    .users-container {
+        position: absolute;
+        top: 0;
+        left: calc(100% - 2em);
+        width: 15em;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        transition: all 0.25s;
+    }
+
+    .users-container:hover {
+        -webkit-transform: translateX(calc(-100% + 2em));
+    }
+}
+
+@media all and (max-width: 360px) {
+    h1 {
+        font-size: 1.5em;
+    }
 }

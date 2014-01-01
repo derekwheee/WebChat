@@ -1,5 +1,5 @@
 $(function() {
- 
+
     var messages   = [],
         socket     = io.connect('http://localhost:3700'),
         message    = $('#message'),
@@ -37,25 +37,23 @@ $(function() {
     else {
         $('#notify').remove();
     }
- 
+
+    socket.on('user', function(data) {
+        $('.users').empty();
+        $(data).each(function() {
+            console.log(this.name);
+            $('.users').append('<div>' + this.name + '<br /><small>' + this.ip.address + '</small></div>');
+        });
+    });
+
     socket.on('message', function (data) {
         if(data.message) {
-            messages.push(data);
-            var html = '',
-                time, timestamp, username;
 
-            for(var i=0; i<messages.length; i++) {
-                username  = messages[i].username ? messages[i].username : 'no one';
-                time      = messages[i].timestamp || new Date();
-                timestamp = messages[i].timestamp || time.getHours() + ':' + (time.getMinutes() < 10 ? '0' + time.getMinutes() : time.getMinutes());
-                html      = html + '<div><strong>' + username + '</strong> ' +
-                            messages[i].message + '<time>' + timestamp + '</time></div>';
+            content.append('<div><strong>' + data.username + '</strong>' + data.message + '<time>' + data.timestamp + '</time></div>');
 
-                notify.title = username + ' says...';
-                notify.body = messages[i].message; 
-            }
+            notify.title = data.username + ' says...';
+            notify.body = data.message;
 
-            content.html(html);
             content.scrollTop(content[0].scrollHeight);
 
             if (Notifications && notification) {
@@ -68,7 +66,7 @@ $(function() {
             console.log('There is a problem:', data);
         }
     });
- 
+
     sendButton.on('click', function() {
         if(!name.val() || !message.val()) {
             alert('Make sure you entered your name and a message');
@@ -80,26 +78,19 @@ $(function() {
 				urlRegex = new RegExp(/\b(^http)+[A-Za-z0-9\/\.:]+(?!\.gif|\.jpg|\.png)$\b/g),
 				newArr   = [],
 				tmpStr   = '';
-				
-			user = user.replace(/</g, '&lt;');
-			
+
 			$(text).each(function() {
 				tmp = this;
 				tmp = tmp.replace(imgRegex, '<img src="$&" />');
 				tmp = tmp.replace(urlRegex, '<a href="$&">$&</a>');
 				newArr.push(tmp);
 			});
-				
+
 			text = newArr.join(' ');
-			
-			if (text === 'refresh') {
-                text = '<script>window.location.reload(true)</script>';
-            }
 
             socket.emit('send', {
                 message   : text,
-                username  : user,
-                timestamp : time.getHours() + ':' + (time.getMinutes() < 10 ? '0' + time.getMinutes() : time.getMinutes())
+                username  : user
             });
             message.val('');
         }
@@ -110,5 +101,5 @@ $(function() {
             sendButton.trigger('click');
         }
     });
- 
+
 });
