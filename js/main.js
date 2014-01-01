@@ -56,7 +56,7 @@ $(function() {
 
             content.scrollTop(content[0].scrollHeight);
 
-            if (Notifications && notification) {
+            if (Notifications && notification && !document.hasFocus()) {
                 notification = Notifications.createNotification('https://scontent-a-lga.xx.fbcdn.net/hphotos-ash2/562136_10150670320458279_1124901033_n.jpg', notify.title, notify.body);
 				notification.onclick = function(x) { window.focus(); this.cancel(); };
                 notification.show();
