@@ -158,6 +158,10 @@ input[type='button'] {
     margin-bottom: 1em;
 }
 
+.user > div.current-user {
+    color: lightblue;
+}
+
 .users small {
     font-size: 0.6em;
     line-height: 1;

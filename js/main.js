@@ -1,7 +1,7 @@
 $(function() {
 
     var messages   = [],
-        socket     = io.connect('http://localhost:3700'),
+        socket     = io.connect('http://192.168.1.140:3700'),
         message    = $('#message'),
         sendButton = $('#send'),
         content    = $('.chat-container'),
@@ -37,6 +37,8 @@ $(function() {
     else {
         $('#notify').remove();
     }
+
+    console.log(document.cookie);
 
     socket.on('user', function(data) {
         $('.users').empty();

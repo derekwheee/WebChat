@@ -15,6 +15,18 @@ var users = [
         {
             address : '1.1.1.1',
             name    : 'Also Nobody'
+        },
+        {
+            address : '192.168.1.140',
+            name    : 'Macbook'
+        },
+        {
+            address : '192.168.1.130',
+            name    : 'iPhone'
+        },
+        {
+            address : '192.168.1.145',
+            name    : 'Mac Mini'
         }
     ],
     methods = {
@@ -34,15 +46,20 @@ var users = [
             return user[0] ? user[0].name : 'Phantom Chatter';
         }
     },
-    clients = [];
+    clients = [],
+    user;
 
 io.sockets.on('connection', function (socket) {
+
+    user  = socket.id;
 
     clients.push({
         "id"   : socket.id,
         "ip"   : socket.handshake.address,
         "name" : methods.getUsername(socket.handshake.address)
     });
+
+    socket.send(user);
 
     socket.emit('user', clients);
     socket.broadcast.emit('user', clients);
