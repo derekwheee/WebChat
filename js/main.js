@@ -1,7 +1,7 @@
 $(function() {
 
     var messages   = [],
-        socket     = io.connect('http://192.168.1.140:3700'),
+        socket     = io.connect('http://192.168.1.145:3700'),
         message    = $('#message'),
         sendButton = $('#send'),
         content    = $('.chat-container'),
@@ -38,18 +38,31 @@ $(function() {
         $('#notify').remove();
     }
 
-    console.log(document.cookie);
-
     socket.on('user', function(data) {
+        var key       = null,
+            userClass = '',
+            sessionId = socket.socket.sessionid,
+            _this;
+
         $('.users').empty();
-        $(data).each(function() {
-            console.log(this.name);
-            $('.users').append('<div>' + this.name + '<br /><small>' + this.ip.address + '</small></div>');
-        });
+
+        for (key in data) {
+            _this = data[key];
+
+            if (_this.id === sessionId) {
+                userClass = 'current-user';
+                name.val(_this.name).prop('disabled', true);
+            } else {
+                userClass = '';
+            }
+
+            $('.users').append('<div class="' + userClass + '">' + _this.name + '<br /><small>' + _this.ip + '</small></div>');
+        }
+
     });
 
     socket.on('message', function (data) {
-        if(data.message) {
+        if (data.hasOwnProperty('message')) {
 
             content.append('<div><strong>' + data.username + '</strong>' + data.message + '<time>' + data.timestamp + '</time></div>');
 
@@ -64,8 +77,12 @@ $(function() {
                 notification.show();
             }
 
-        } else {
-            console.log('There is a problem:', data);
+        }
+
+        if ($.isArray(data)) {
+            $(data).each(function () {
+                content.append('<div><strong>' + this.username + '</strong>' + this.message + '<time>' + this.timestamp + '</time></div>');
+            });
         }
     });
 

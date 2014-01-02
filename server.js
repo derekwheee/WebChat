@@ -2,31 +2,15 @@ var express = require('express'),
     http    = require('http'),
     app     = express(),
     server  = http.createServer(app),
-    io      = require('socket.io').listen(server),
+    io      = require('socket.io').listen(server, { log: false }),
     port    = 3700;
 
 app.use(express.static(__dirname + '/'));
 
 var users = [
         {
-            address : '0.0.0.0',
-            name    : 'Nobody'
-        },
-        {
-            address : '1.1.1.1',
-            name    : 'Also Nobody'
-        },
-        {
-            address : '192.168.1.140',
-            name    : 'Macbook'
-        },
-        {
-            address : '192.168.1.130',
-            name    : 'iPhone'
-        },
-        {
             address : '192.168.1.145',
-            name    : 'Mac Mini'
+            name    : 'Derek'
         }
     ],
     methods = {
@@ -40,48 +24,47 @@ var users = [
         },
         getUsername : function (address) {
             var user = users.filter(function(user) {
-                return user.address === address.address;
+                return user.address === address;
             });
 
-            return user[0] ? user[0].name : 'Phantom Chatter';
+            return user[0] ? user[0].name : 'Lone Wanderer';
         }
     },
-    clients = [],
-    user;
+    messages = [],
+    clients  = {},
+    client;
 
 io.sockets.on('connection', function (socket) {
 
-    user  = socket.id;
-
-    clients.push({
+    client  = {
         "id"   : socket.id,
-        "ip"   : socket.handshake.address,
-        "name" : methods.getUsername(socket.handshake.address)
-    });
+        "ip"   : socket.handshake.address.address,
+        "name" : methods.getUsername(socket.handshake.address.address)
+    }
 
-    socket.send(user);
+    clients[socket.id] = client;
 
     socket.emit('user', clients);
     socket.broadcast.emit('user', clients);
 
-    socket.emit('message', {
-        username  : 'No One',
-        message   : 'Welcome.',
-        timestamp : methods.getTime()
-    });
+    socket.emit('message', messages);
 
     socket.on('send', function (data) {
-        var message = data.message === 'refresh' ? '<script>window.location.reload(true)</script>' : data.message.replace('/</g', '&lt;');
+        var message = data.message === 'refresh' ? '<script>window.location.reload(true)</script>' : data.message.replace('/</g', '&lt;'),
+            toSend = {
+                username  : data.username,
+                message   : message,
+                timestamp : methods.getTime()
+            };
 
-        io.sockets.emit('message', {
-            username  : data.username,
-            message   : message,
-            timestamp : methods.getTime()
-        });
+        if (data.message !== 'refresh') messages.push(toSend);
+        if (messages.length === 11) messages.shift();
+
+        io.sockets.emit('message', toSend);
     });
 
     socket.on('disconnect', function () {
-        clients.splice(clients.indexOf(socket.id), 1);
+        delete clients[socket.id];
         socket.broadcast.emit('user', clients);
     });
 });
