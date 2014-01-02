@@ -93,15 +93,15 @@ $(function() {
             var text     = message.val().replace(/</g, '&lt;').split(' '),
 				user     = name.val(),
                 time     = new Date(),
-				imgRegex = new RegExp(/\b[A-Za-z0-9\/\.:]+(\.gif|\.jpg|\.png)$\b/g),
-				urlRegex = new RegExp(/\b(^http)+[A-Za-z0-9\/\.:]+(?!\.gif|\.jpg|\.png)$\b/g),
+				imgRegex = new RegExp(/\b[A-Za-z0-9:_\/\.\-\+]+(\.gif|\.jpg|\.png)$\b/g),
+				urlRegex = new RegExp(/\b(^http|www)+[A-Za-z0-9\/\.:]+(?!\.gif|\.jpg|\.png)$\b/g),
 				newArr   = [],
 				tmpStr   = '';
 
 			$(text).each(function() {
 				tmp = this;
 				tmp = tmp.replace(imgRegex, '<img src="$&" />');
-				tmp = tmp.replace(urlRegex, '<a href="$&">$&</a>');
+				tmp = tmp.replace(urlRegex, '<a href="$&" target="_blank">$&</a>');
 				newArr.push(tmp);
 			});
 
