@@ -4,8 +4,10 @@
     "author"       : "Derek Wheelden",
     "description"  : "Node-based web chat using Express and Socket.io",
     "dependencies" : {
-        "socket.io" : "latest",
-        "express"   : "latest",
-        "jade"      : "latest"
+        "socket.io"   : "~0.9",
+        "express"     : "~3.4",
+        "jade"        : "~1.0",
+        "consolidate" : "~0.10",
+        "mustache"    : "~0.8"
     }
 }

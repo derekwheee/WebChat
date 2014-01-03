@@ -1,12 +1,36 @@
-var express = require('express'),
+var // Dependencies
+    express = require('express'),
     http    = require('http'),
+    cons    = require('consolidate'),
+    // App setup
     app     = express(),
     server  = http.createServer(app),
     io      = require('socket.io').listen(server, { log: false }),
+    // Local vars
     port    = 3700;
 
+/** SERVER CONFIG **/
+// View rendering
+app.engine('mjs', cons.mustache);
+app.set('view engine', 'mjs');
+app.set('views', __dirname + '/views');
+// Middleware
+app.use(express.compress());
+app.use(express.json());
+app.use(express.urlencoded());
+app.use(express.cookieParser());
+
+/** ROUTES **/
+// Basic routes
+app.get('/', function(req, res){
+    res.render('chat', {
+        title: 'Web Chat'
+    });
+});
+// Serve static files
 app.use(express.static(__dirname + '/'));
 
+/** SOCKET.IO CHAT CONFIG **/
 var users = [
         {
             address : '192.168.1.145',
