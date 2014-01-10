@@ -105,7 +105,7 @@ $(function() {
 
             appendMessages : function (data) {
                 if (data.hasOwnProperty('message')) {
-                    var message = CHAT.methods.renderImagesLinks(data.message);
+                    var message = CHAT.methods.renderMessage(data.message);
 
                     CHAT.$container.append('<div><strong>' + data.username + '</strong>' + message + '<time>' + data.timestamp + '</time></div>');
 
@@ -130,7 +130,7 @@ $(function() {
                     var message;
 
                     $(data).each(function () {
-                        message = CHAT.methods.renderImagesLinks(this.message);
+                        message = CHAT.methods.renderMessage(this.message);
                         CHAT.$container.append('<div><strong>' + this.username + '</strong>' + message + '<time>' + this.timestamp + '</time></div>');
                     });
                 }
@@ -152,17 +152,19 @@ $(function() {
                 }
             },
 
-            renderImagesLinks : function (message) {
-                var text     = message.split(' '),
-                    imgRegex = new RegExp(/\b[A-Za-z0-9:_\/\.\-\+]+(\.gif|\.jpg|\.png)$\b/g),
-                    urlRegex = new RegExp(/\b(^http|www)+[A-Za-z0-9\/\.:]+(?!\.gif|\.jpg|\.png)$\b/g),
-                    newArr   = [],
-                    tmpStr   = '';
+            renderMessage : function (message) {
+                var text       = message.split(' '),
+                    imgRegex   = new RegExp(/\b[A-Za-z0-9:_\/\.\-\+]+(\.gif|\.jpg|\.png)$\b/g),
+                    urlRegex   = new RegExp(/\b(^http|www)+[A-Za-z0-9\/\.:]+(?!\.gif|\.jpg|\.png)$\b/g),
+                    emoteRegex = new RegExp(/(&lt;)?>?[:=8b](?!$)-?(&lt;)?[3\(\)\[\]>o]?/i),
+                    newArr     = [],
+                    tmpStr     = '';
 
                 $(text).each(function() {
                     tmp = this;
                     tmp = tmp.replace(imgRegex, '<img src="$&" />');
                     tmp = tmp.replace(urlRegex, '<a href="$&" target="_blank">$&</a>');
+                    tmp = tmp.replace(emoteRegex, '<span class="emote">$&</span>');
                     newArr.push(tmp);
                 });
 
