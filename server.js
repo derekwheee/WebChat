@@ -33,7 +33,7 @@ app.use(express.static(__dirname + '/'));
 /** SOCKET.IO CHAT CONFIG **/
 var users = [
         {
-            address : '192.168.1.145',
+            address : '192.168.80.19',
             name    : 'Derek'
         }
     ],
@@ -74,9 +74,10 @@ io.sockets.on('connection', function (socket) {
     socket.emit('message', messages);
 
     socket.on('send', function (data) {
-        var message = data.message === 'refresh' ? '<script>window.location.reload(true)</script>' : data.message.replace('/</g', '&lt;'),
-            toSend = {
-                username  : data.username,
+        var message  = data.message === 'refresh' ? '<script>window.location.reload(true)</script>' : data.message.replace(/</g, '&lt;'),
+            username =  data.username.replace(/</g, '&lt;'),
+            toSend   = {
+                username  : username,
                 message   : message,
                 timestamp : methods.getTime()
             };
@@ -86,6 +87,10 @@ io.sockets.on('connection', function (socket) {
 
         io.sockets.emit('message', toSend);
     });
+
+    socket.on('typing', function(data) {
+        io.sockets.emit('typing', data);
+    })
 
     socket.on('disconnect', function () {
         delete clients[socket.id];
