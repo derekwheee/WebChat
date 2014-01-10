@@ -156,7 +156,7 @@ $(function() {
                 var text       = message.split(' '),
                     imgRegex   = new RegExp(/\b[A-Za-z0-9:_\/\.\-\+]+(\.gif|\.jpg|\.png)$\b/g),
                     urlRegex   = new RegExp(/\b(^http|www)+[A-Za-z0-9\/\.:]+(?!\.gif|\.jpg|\.png)$\b/g),
-                    emoteRegex = new RegExp(/(&lt;)?>?[:=8b](?!$|[A-Z])-?(&lt;)?[3\(\)\[\]>]?/i),
+                    emoteRegex = new RegExp(/^((&lt;)|[>:;=8bd])+-?([()\[\]\/\\\|bdop3\{\}:><]|(&lt;))$/i),
                     newArr     = [],
                     tmpStr     = '';
 
