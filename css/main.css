@@ -1,4 +1,4 @@
-* { box-sizing: border-box; }
+* { -moz-box-sizing: border-box; box-sizing: border-box; }
 
 ::-webkit-input-placeholder {
    color: white;
@@ -39,6 +39,7 @@ h1 {
     font-weight: 700;
     text-align: center;
     text-transform: uppercase;
+    -webkit-transition: margin 0.5s;
     transition: margin 0.5s;
 }
 
@@ -55,6 +56,7 @@ h2 {
 .container {
     width: 66.6667%;
     height: 100%;
+    height: -webkit-calc(100% - 6em);
     height: calc(100% - 6em);
     float: left;
 }
@@ -73,6 +75,7 @@ h2 {
     margin-right: 1em;
     text-transform: capitalize;
     opacity: 0.2;
+    -webkit-transition: opacity 0.25s;
     transition: opacity 0.25s;
 }
 
@@ -95,11 +98,36 @@ h2 {
     right: 2em;
     opacity: 0.3;
     color: tomato;
+    -webkit-transition: opacity 0.25s;
     transition: opacity 0.25s;
 }
 
 .chat-container:hover time {
     opacity: 1;
+}
+
+.chat-container span.emote {
+    display: inline-block;
+    padding: 0 1em;
+    font-weight: bold;
+    color: tomato;
+    -webkit-transform: rotateZ(90deg);
+    transform: rotateZ(90deg);
+    -webkit-transform-origin: center center;
+    transform-origin: center center;
+    -webkit-animation: wiggle 0.75s infinite;
+    animation: wiggle 0.75s infinite;
+    -webkit-backface-visibility: hidden;
+}
+
+@-webkit-keyframes wiggle {
+    0% { -webkit-transform: rotateZ(90deg); transform: rotateZ(90deg); }
+    50% { -webkit-transform: rotateZ(70deg); transform: rotateZ(70deg); }
+}
+
+@keyframes wiggle {
+    0% { -webkit-transform: rotateZ(90deg); transform: rotateZ(90deg); }
+    50% { -webkit-transform: rotateZ(70deg); transform: rotateZ(70deg); }
 }
 
 .controls {
@@ -150,7 +178,7 @@ input[type='button'] {
     float: right;
 }
 
-.users-container i {
+.users-container > i {
     position: absolute;
     top: 0.5em;
     left: 0.5em;
@@ -166,6 +194,12 @@ input[type='button'] {
 
 .users > div.current-user {
     color: #b6ff19;
+}
+
+.users i.typing {
+    display: none;
+    padding: 0 1em;
+    color: white;
 }
 
 .users small {
@@ -189,6 +223,7 @@ input[type='button'] {
 
 @media all and (max-width: 800px) {
     .container {
+        width: -webkit-calc(100% - 2em);
         width: calc(100% - 2em);
         float: none;
     }
@@ -196,15 +231,17 @@ input[type='button'] {
     .users-container {
         position: absolute;
         top: 0;
+        left: -webkit-calc(100% - 2em);
         left: calc(100% - 2em);
         width: 15em;
         height: 100%;
         background: rgba(0, 0, 0, 0.85);
+        -webkit-transition: all 0.25s;
         transition: all 0.25s;
     }
 
     .users-container:hover {
-        -webkit-transform: translateX(calc(-100% + 2em));
+        -webkit-transform: translateX(-webkit-calc(-100% + 2em));
     }
 }
 

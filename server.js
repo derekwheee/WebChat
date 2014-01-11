@@ -1,15 +1,39 @@
-var express = require('express'),
+var // Dependencies
+    express = require('express'),
     http    = require('http'),
+    cons    = require('consolidate'),
+    // App setup
     app     = express(),
     server  = http.createServer(app),
     io      = require('socket.io').listen(server, { log: false }),
+    // Local vars
     port    = 3700;
 
+/** SERVER CONFIG **/
+// View rendering
+app.engine('mjs', cons.mustache);
+app.set('view engine', 'mjs');
+app.set('views', __dirname + '/views');
+// Middleware
+app.use(express.compress());
+app.use(express.json());
+app.use(express.urlencoded());
+app.use(express.cookieParser());
+
+/** ROUTES **/
+// Basic routes
+app.get('/', function(req, res){
+    res.render('chat', {
+        title: 'Web Chat'
+    });
+});
+// Serve static files
 app.use(express.static(__dirname + '/'));
 
+/** SOCKET.IO CHAT CONFIG **/
 var users = [
         {
-            address : '192.168.1.145',
+            address : '192.168.80.19',
             name    : 'Derek'
         }
     ],
@@ -50,9 +74,10 @@ io.sockets.on('connection', function (socket) {
     socket.emit('message', messages);
 
     socket.on('send', function (data) {
-        var message = data.message === 'refresh' ? '<script>window.location.reload(true)</script>' : data.message.replace('/</g', '&lt;'),
-            toSend = {
-                username  : data.username,
+        var message  = data.message === 'refresh' ? '<script>window.location.reload(true)</script>' : data.message.replace(/</g, '&lt;'),
+            username =  data.username.replace(/</g, '&lt;'),
+            toSend   = {
+                username  : username,
                 message   : message,
                 timestamp : methods.getTime()
             };
@@ -62,6 +87,10 @@ io.sockets.on('connection', function (socket) {
 
         io.sockets.emit('message', toSend);
     });
+
+    socket.on('typing', function(data) {
+        io.sockets.emit('typing', data);
+    })
 
     socket.on('disconnect', function () {
         delete clients[socket.id];
