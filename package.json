@@ -1,6 +1,6 @@
 {
     "name"         : "WebChat",
-    "version"      : "0.0.0",
+    "version"      : "0.1.0",
     "author"       : "Derek Wheelden",
     "description"  : "Node-based web chat using Express and Socket.io",
     "dependencies" : {
