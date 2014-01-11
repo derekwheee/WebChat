@@ -1,0 +1,89 @@
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+::-webkit-input-placeholder {
+   color: lighten($primary, 20%);
+}
+
+::-moz-placeholder {
+   color: lighten($primary, 20%);
+}
+
+:-ms-input-placeholder {
+   color: lighten($primary, 20%);
+}
+
+html, body { height: 100%; margin: 0; }
+
+html { font-size: 62.5%; }
+
+body {
+    background: $primary;
+    font-size: 2em;
+    line-height: 1.5;
+    color: white;
+    overflow-y: scroll;
+
+    @extend %t-paragraph-book;
+
+    @include bp(large) {
+        font-size: 1.75em;
+    }
+}
+
+a {
+  color: $primary;
+  text-decoration: none;
+  &:hover { color: $purple;}
+}
+
+h1 {
+    margin: -0.8em 0 0 0;
+    font-size: 8em;
+    text-align: center;
+    text-transform: uppercase;
+    -webkit-transition: margin 0.5s;
+    transition: margin 0.5s;
+
+    @extend %t-heading-bold;
+    
+    &:hover {
+      margin: -0.3em 0 0 0;
+    }
+
+    @include bp(large) {
+        font-size: 4em;
+        margin: 0;
+
+        &:hover {
+            margin: 0;
+        }
+    }
+
+    @include bp(small) {
+        font-size: 1.5em;
+    }
+}
+
+h2 {
+    margin: 0 0 0.5em;
+    font-weight: 300;
+    opacity: 0.5;
+}
+
+.container {
+    width: 66.6667%;
+    height: 100%;
+    height: -webkit-calc(100% - 6em);
+    height: calc(100% - 6em);
+    float: left;
+
+    @include bp(medium) {
+        width: -webkit-calc(100% - 2em);
+        width: calc(100% - 2em);
+        float: none;
+    }
+}

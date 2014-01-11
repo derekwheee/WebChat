@@ -1,0 +1,69 @@
+.chat-container {
+    width: 100%;
+    height: 70%;
+    margin: 0 auto 1em;
+    padding: 0;
+    background: white;
+    color: #444;
+    overflow-y: scroll;
+
+    strong {
+        margin-right: 1em;
+        text-transform: capitalize;
+        opacity: 0.2;
+        -webkit-transition: opacity 0.25s;
+        transition: opacity 0.25s;
+    }
+
+    &:hover strong {
+        opacity: 0.6;
+    }
+
+    div {
+        position: relative;
+        padding: 0.5em 5em 0.5em 2em;
+        white-space: pre-wrap;
+    }
+
+    div:nth-child(odd) {
+        background: #fafafa;
+    }
+
+    time {
+        position: absolute;
+        right: 2em;
+        opacity: 0.3;
+        color: $primary;
+        -webkit-transition: opacity 0.25s;
+        transition: opacity 0.25s;
+    }
+
+    &:hover time {
+        opacity: 1;
+    }
+
+    span.emote {
+        display: inline-block;
+        padding: 0 1em;
+        font-weight: bold;
+        color: $primary;
+        -webkit-transform: rotateZ(90deg);
+        transform: rotateZ(90deg);
+        -webkit-transform-origin: center center;
+        transform-origin: center center;
+        -webkit-animation: wiggle 0.75s infinite;
+        animation: wiggle 0.75s infinite;
+        -webkit-backface-visibility: hidden;
+    }
+}
+
+
+@-webkit-keyframes wiggle {
+    0% { -webkit-transform: rotateZ(90deg); transform: rotateZ(90deg); }
+    50% { -webkit-transform: rotateZ(70deg); transform: rotateZ(70deg); }
+}
+
+@keyframes wiggle {
+    0% { -webkit-transform: rotateZ(90deg); transform: rotateZ(90deg); }
+    50% { -webkit-transform: rotateZ(70deg); transform: rotateZ(70deg); }
+}
