@@ -4,14 +4,16 @@ requirejs.config({
     
     paths: {
         // dependencies
-        jquery               : '/vendor/jquery',
-        underscore           : '/vendor/underscore',
-        backbone             : '/vendor/backbone',
+        jquery     : '/vendor/jquery',
+        underscore : '/vendor/underscore',
+        backbone   : '/vendor/backbone',
+        socketio   : '/socket.io/socket.io',
         // plugins
-        mustache             : '/vendor/mustache',
-        text                 : '/vendor/text'
+        mustache   : '/vendor/mustache',
+        text       : '/vendor/text',
         // libs
-
+        helpers    : 'libs/helpers',
+        chat       : 'libs/chat'
     },
     shim: {
         underscore : {
@@ -20,6 +22,12 @@ requirejs.config({
         backbone : {
             deps : ['underscore', 'jquery'],
             exports : 'Backbone'
+        },
+        socketio : {
+            exports : 'io'
+        },
+        chat : {
+            exports : 'loadChat'
         }
     }
 

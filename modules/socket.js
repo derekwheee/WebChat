@@ -1,6 +1,6 @@
 exports.init = function(server) {
 
-    var io     = require('socket.io').listen(server, { log: false }),
+    var io     = require('socket.io').listen(server),
         users  = [
             {
                 address : '192.168.80.19',

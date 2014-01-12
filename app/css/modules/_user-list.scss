@@ -1,10 +1,11 @@
 .users-container {
-    position: relative;
+    position: absolute;
+    top: 0;
+    right: 0;
     width: 33.3333%;
     height: 100%;
     padding: 2em;
     background: desaturate(darken($primary, 15%), 40%);
-    float: right;
 
     > i {
         position: absolute;

@@ -52,7 +52,7 @@ exports.init = function(app, settings) {
     });
 
     // Basic routes
-    app.get('/chat', chat.init);
+    //app.get('/chat', chat.init);
 
     // Serve static files
     app.use(express.static(settings.app));

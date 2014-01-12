@@ -1,4 +1,15 @@
-define(['jquery', 'underscore', 'backbone'], function ($, _, Backbone) {
+define(
+    [
+        'jquery',
+        'backbone',
+        'helpers',
+        'views/index'
+    ], function (
+        $,
+        Backbone,
+        Helpers,
+        IndexView
+    ) {
 
     var Router = Backbone.Router.extend({
 
@@ -9,11 +20,18 @@ define(['jquery', 'underscore', 'backbone'], function ($, _, Backbone) {
         },
 
         routes: {
+            ''      : 'index',
             '*path' : 'default'
         },
 
         default : function() {
             console.log('index.htmlol');
+        },
+
+        index : function(actions) {
+            var view  = new IndexView();
+
+            Helpers.showView(view);
         }
 
     });
