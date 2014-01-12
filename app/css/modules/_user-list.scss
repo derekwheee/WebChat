@@ -2,7 +2,7 @@
     position: absolute;
     top: 0;
     right: 0;
-    width: 33.3333%;
+    width: 20em;
     height: 100%;
     padding: 2em;
     background: desaturate(darken($primary, 15%), 40%);
@@ -21,11 +21,12 @@
         width: 15em;
         height: 100%;
         background: rgba(0, 0, 0, 0.85);
-        -webkit-transition: all 0.25s;
-        transition: all 0.25s;
+        
+        @include transition-property(transform);
+        @include transition-duration(0.25s);
 
         &:hover {
-            -webkit-transform: translateX(-webkit-calc(-100% + 2em));
+            @include transform (translateX(-webkit-calc(-100% + 2em)));
         }
     }
 }  

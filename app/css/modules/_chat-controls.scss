@@ -2,7 +2,6 @@
     width: 90%;
     max-width: 60em;
     margin: 0 auto;
-    padding-bottom: 2em;
 }
 
 label {
@@ -24,6 +23,10 @@ input[type='text'] {
     font-size: 1em;
     color: white;
     outline: none;
+
+    @include placeholder {
+        color: lighten($primary, 20%);
+    }
 }
 
 input[type='button'] {

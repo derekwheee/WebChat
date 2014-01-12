@@ -3,7 +3,8 @@ $hasMediaQueries : true;
 
 // Sass
 @import 'sass/variables',
-        'sass/mixins';
+        'sass/mixins',
+        'bourbon/bourbon';
 
 // Extends
 @import 'extends/type';

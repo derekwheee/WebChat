@@ -8,8 +8,9 @@ module.exports = function(grunt) {
         sass : {
             dist : {
                 options : {
-                    style  : 'compressed',
-                    banner : '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> / (C)<%= grunt.template.today("yyyy") %> <%= pkg.author %> */'
+                    style    : 'compressed',
+                    loadPath : ['bower_components', 'css/vendor'],
+                    banner   : '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> / (C)<%= grunt.template.today("yyyy") %> <%= pkg.author %> */'
                 },
                 files : {
                     'css/main.css' : 'css/main.scss'

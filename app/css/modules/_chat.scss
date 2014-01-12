@@ -1,6 +1,6 @@
 .chat-container {
     width: 100%;
-    height: 70%;
+    height: calc(100% - 8em);
     margin: 0 auto 1em;
     padding: 0;
     background: white;
@@ -10,13 +10,12 @@
     strong {
         margin-right: 1em;
         text-transform: capitalize;
-        opacity: 0.2;
-        -webkit-transition: opacity 0.25s;
-        transition: opacity 0.25s;
+        opacity: 0.4;
+        @include transition (opacity 0.25s);
     }
 
     &:hover strong {
-        opacity: 0.6;
+        opacity: 0.8;
     }
 
     div {
@@ -32,10 +31,9 @@
     time {
         position: absolute;
         right: 2em;
-        opacity: 0.3;
+        opacity: 0.5;
         color: $primary;
-        -webkit-transition: opacity 0.25s;
-        transition: opacity 0.25s;
+        @include transition (opacity 0.25s);
     }
 
     &:hover time {
@@ -47,23 +45,20 @@
         padding: 0 1em;
         font-weight: bold;
         color: $primary;
-        -webkit-transform: rotateZ(90deg);
-        transform: rotateZ(90deg);
-        -webkit-transform-origin: center center;
-        transform-origin: center center;
-        -webkit-animation: wiggle 0.75s infinite;
-        animation: wiggle 0.75s infinite;
+
+        @include transform (rotateZ(100deg));
+        @include transform-origin (center center);
+        @include animation (wiggle 0.75s infinite);
+
         -webkit-backface-visibility: hidden;
     }
 }
 
-
-@-webkit-keyframes wiggle {
-    0% { -webkit-transform: rotateZ(90deg); transform: rotateZ(90deg); }
-    50% { -webkit-transform: rotateZ(70deg); transform: rotateZ(70deg); }
-}
-
-@keyframes wiggle {
-    0% { -webkit-transform: rotateZ(90deg); transform: rotateZ(90deg); }
-    50% { -webkit-transform: rotateZ(70deg); transform: rotateZ(70deg); }
+@include keyframes(wiggle) {
+  0% {
+    @include transform(rotateZ(100deg));
+  }
+  50% {
+    @include transform(rotateZ(80deg));
+  }
 }
