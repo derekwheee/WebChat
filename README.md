@@ -6,7 +6,18 @@ A fairly simple Node-based webchat built on Express and Socket.io.
 ## Installation
 Clone this repo by running `git clone git://github.com/frxnz/WebChat.git`
 
-Install Node dependencies with `npm install` and then run `node server`
+##### Install server dependencies
+The server has a few Node dependencies. In the root directory run:
+`npm install`
+
+##### Install app dependencies
+The app itself has Node and Bower dependencies. `cd app` and run:
+`npm install`
+then
+`bower install`
+
+##### Start server
+From the root directory run `node server` or from the app directory run `node ../server`
 
 The app should now be available at [localhost:3700](http://localhost:3700)
 
