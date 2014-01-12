@@ -4,22 +4,29 @@ module.exports = function(grunt) {
 
     // Project configuration.
     grunt.initConfig({
-        pkg: grunt.file.readJSON('package.json'),
-        sass: {
-            dist: {
+        pkg  : grunt.file.readJSON('package.json'),
+        sass : {
+            dist : {
                 options : {
                     style  : 'compressed',
                     banner : '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> / (C)<%= grunt.template.today("yyyy") %> <%= pkg.author %> */'
                 },
-                files: {
+                files : {
                     'css/main.css' : 'css/main.scss'
                 }
             }
         },
-        watch: {
-            css: {
-                files: '**/*.scss',
-                tasks: ['sass']
+        jshint : {
+            all: ['js/**/*.js']
+        },
+        watch : {
+            css : {
+                files : 'css/**/*.scss',
+                tasks : ['sass']
+            },
+            js : {
+                files : 'js/**/*.js',
+                tasks : ['jshint']
             }
         }
     });

@@ -9,11 +9,19 @@ var // Dependencies
     // Local vars
     port    = 3700;
 
+// Settings
+var settings = {
+    env  : app.get('env'),
+    root : process.cwd() 
+};
+
+console.log(settings.env);
+
 /** SERVER CONFIG **/
 // View rendering
 app.engine('mjs', cons.mustache);
 app.set('view engine', 'mjs');
-app.set('views', __dirname + '/views');
+app.set('views', settings.root + '/views');
 // Middleware
 app.use(express.compress());
 app.use(express.json());
@@ -27,8 +35,9 @@ app.get('/', function(req, res){
         title: 'Web Chat'
     });
 });
+
 // Serve static files
-app.use(express.static(__dirname + '/'));
+app.use(express.static(settings.root + '/'));
 
 /** SOCKET.IO CHAT CONFIG **/
 var users = [
@@ -98,5 +107,18 @@ io.sockets.on('connection', function (socket) {
     });
 });
 
-server.listen(port);
-console.log("Listening on port " + port);
+// For running in Grunt env
+if (settings.env === 'development') {
+    exports = module.exports = server;
+    // delegates user() function
+    exports.use = function() {
+      app.use.apply(app, arguments);
+    };
+}
+
+// For running in Node env
+if ('production' === settings.env || 'staging' === app.get('env')) {
+    server.listen(port);
+    console.log("Listening on port " + port);
+}
+

@@ -94,7 +94,7 @@ $(function() {
                             id      : _this.id,
                             name    : _this.name,
                             session : sessionId
-                        }
+                        };
                     } else {
                         userClass = '';
                     }
@@ -104,8 +104,10 @@ $(function() {
             },
 
             appendMessages : function (data) {
+                var message;
+                
                 if (data.hasOwnProperty('message')) {
-                    var message = CHAT.methods.renderMessage(data.message);
+                    message = CHAT.methods.renderMessage(data.message);
 
                     CHAT.$container.append('<div><strong>' + data.username + '</strong>' + message + '<time>' + data.timestamp + '</time></div>');
 
@@ -127,8 +129,6 @@ $(function() {
                 }
 
                 if ($.isArray(data)) {
-                    var message;
-
                     $(data).each(function () {
                         message = CHAT.methods.renderMessage(this.message);
                         CHAT.$container.append('<div><strong>' + this.username + '</strong>' + message + '<time>' + this.timestamp + '</time></div>');

@@ -13,5 +13,8 @@
         @else if $point == large {
             @media #{$bp-large}  { @content; }
         }
+        @else {
+            @media #{$point} { @content; }
+        }
     }
 }
