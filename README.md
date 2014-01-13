@@ -35,7 +35,7 @@ Currently users are identified by IP. You can identify users by adding them to t
 ## TODO
 #### Near Future
 * ~~Modularize the server, especially the socket.io portion.~~
-* Setup Backbone on the client-side to support views and routing.
+* ~~Setup Backbone on the client-side to support views and routing.~~
 * Move users and logging to MongoDB.
 * Add support for multiple 'rooms', private messaging.
 * Add active/idle/probably offline status icons.
