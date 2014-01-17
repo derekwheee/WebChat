@@ -108,17 +108,24 @@ define([
                 },
 
                 appendMessages : function (data) {
-                    var message;
+                    var message, img;
                     
                     if (data.hasOwnProperty('message')) {
                         message = CHAT.methods.renderMessage(data.message);
 
                         CHAT.$container.append('<div><strong>' + data.username + '</strong>' + message + '<time>' + data.timestamp + '</time></div>');
 
+                        img = CHAT.$container.children('div:last-child').find('img');
+                        if(img.length){
+                            img.on('load', function(){
+                                CHAT.$container.scrollTop(CHAT.$container[0].scrollHeight);
+                            });
+                        } else {
+                            CHAT.$container.scrollTop(CHAT.$container[0].scrollHeight);
+                        }
+
                         CHAT.notify.title = data.username + ' says...';
                         CHAT.notify.body = message;
-
-                        CHAT.$container.scrollTop(CHAT.$container[0].scrollHeight);
 
                         if (CHAT.Notifications && CHAT.notification && !document.hasFocus()) {
                             CHAT.notification = CHAT.Notifications.createNotification('https://scontent-a-lga.xx.fbcdn.net/hphotos-ash2/562136_10150670320458279_1124901033_n.jpg', CHAT.notify.title, CHAT.notify.body);
