@@ -8,7 +8,7 @@ define([
 
             socket        : io.connect('http://localhost:3700'),
             notify        : {},
-            notification  : null,
+            notification  : {},
             Notifications : window.Notifications || window.webkitNotifications || window.mozNotifications,
             $name         : $('#name'),
             $message      : $('#message'),
@@ -128,7 +128,7 @@ define([
                         CHAT.notify.body = message;
 
                         if (CHAT.Notifications && CHAT.notification && !document.hasFocus()) {
-                            CHAT.notification = CHAT.Notifications.createNotification('https://scontent-a-lga.xx.fbcdn.net/hphotos-ash2/562136_10150670320458279_1124901033_n.jpg', CHAT.notify.title, CHAT.notify.body);
+                            CHAT.notification = CHAT.Notifications.createNotification('http://hem.bredband.net/kalsod/gif/netscape.gif', CHAT.notify.title, CHAT.notify.body);
                             CHAT.notification.onclick = function(x) { window.focus(); this.cancel(); };
                             CHAT.notification.show();
 
@@ -165,9 +165,9 @@ define([
 
                 renderMessage : function (message) {
                     var text       = message.split(' '),
-                        imgRegex   = new RegExp(/\b[A-Za-z0-9:_\/\.\-\+]+(\.gif|\.jpg|\.png)$\b/g),
-                        urlRegex   = new RegExp(/\b(^http|www)+[A-Za-z0-9\/\.:]+(?!\.gif|\.jpg|\.png)$\b/g),
-                        emoteRegex = new RegExp(/^((&lt;)|[>:;=8b])+[-']?([()\[\]\/\\\|bdop3\{\}><]|(&lt;))$/i),
+                        imgRegex   = new RegExp(/(^http|www).*(?:\.gif|\.jpg|\.jpeg|\.png)$/ig),
+                        urlRegex   = new RegExp(/(^http|www).*(?!(?:\.gif|\.jpg|\.jpeg|\.png))$/ig),
+                        emoteRegex = new RegExp(/^((&lt;)|[>:;=8b]){1,2}[-']?([()\[\]\/\\\|bdop3\{\}><]|(&lt;))$/i),
                         newArr     = [],
                         tmpStr     = '';
 
