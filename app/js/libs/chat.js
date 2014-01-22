@@ -109,7 +109,7 @@ define([
 
                 appendMessages : function (data) {
                     var message, img;
-                    
+
                     if (data.hasOwnProperty('message')) {
                         message = CHAT.methods.renderMessage(data.message);
 
@@ -205,9 +205,9 @@ define([
                         $icon = $user.find('i.typing');
 
                     if (data.typing) {
-                        $icon.show();
+                        $icon.addClass('isTyping');
                     } else {
-                        $icon.hide();
+                        $icon.removeClass('isTyping');
                     }
                 }
 

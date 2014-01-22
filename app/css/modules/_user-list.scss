@@ -21,7 +21,7 @@
         width: 15em;
         height: 100%;
         background: rgba(0, 0, 0, 0.85);
-        
+
         @include transition-property(transform);
         @include transition-duration(0.25s);
 
@@ -29,7 +29,7 @@
             @include transform (translateX(-webkit-calc(-100% + 2em)));
         }
     }
-}  
+}
 
 .users {
     line-height: 1;
@@ -43,9 +43,11 @@
     }
 
     i.typing {
-        display: none;
         padding: 0 1em;
         color: white;
+        visibility: hidden;
+
+        &.isTyping { visibility: visible; }
     }
 
     small {
