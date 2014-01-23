@@ -14,6 +14,7 @@ To run the chat start by installing the required packages.
 
 ##### In WebChat/app
 Run the following commands to install the Node and Bower packages:
+    
     npm install
     bower install
 
