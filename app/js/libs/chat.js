@@ -165,8 +165,8 @@ define([
 
                 renderMessage : function (message) {
                     var text       = message.split(' '),
-                        imgRegex   = new RegExp(/(^http|www).*(?:\.gif|\.jpg|\.jpeg|\.png)$/ig),
-                        urlRegex   = new RegExp(/(^http|www).*(?!(?:\.gif|\.jpg|\.jpeg|\.png))$/ig),
+                        imgRegex   = new RegExp(/^(https?).*(?:jpe?g|gif|png)$/ig),
+                        urlRegex   = new RegExp(/^(https?).*(?!(?:\.gif|\.jpg|\.jpeg|\.png))$/ig),
                         emoteRegex = new RegExp(/^((&lt;)|[>:;=8b]){1,2}[-']?([()\[\]\/\\\|bdop3\{\}><]|(&lt;))$/i),
                         newArr     = [],
                         tmpStr     = '';
