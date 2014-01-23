@@ -1,30 +1,40 @@
 WebChat
 =======
 
-A fairly simple Node-based webchat built on Express and Socket.io.
+An ever-growing Node-based webchat built on Express and Socket.io.
 
 ## Installation
 Clone this repo by running `git clone git://github.com/frxnz/WebChat.git`
 
 ##### Install server dependencies
-The server has a few Node dependencies. In the root directory run:
-`npm install`
 
-##### Install app dependencies
-The app itself has Node and Bower dependencies. `cd app` and run:
-`npm install`
-then
-`bower install`
+WebChat requires [Node](http://nodejs.org/) and [Bower](http://bower.io/) to install and run. The repo also includes a [Gruntfile](http://gruntjs.com/) for watching/compiling Sass and running JSHint.
 
-##### Start server
-From the root directory run `node server` or from the app directory run `node ../server`
+To run the chat start by installing the required packages.
 
-The app should now be available at [localhost:3700](http://localhost:3700)
+##### In WebChat/app
+Run the following commands to install the Node and Bower packages:
+    npm install
+    bower install
+
+##### In WebChat/server
+Run `npm install` to install the Node packages.
+
+Finally, run `node server` from WebChat/server and the app should be available at [localhost:3700](http://localhost:3700).
 
 ## Adding Users
 Currently users are identified by IP. You can identify users by adding them to the `users` array in `server.js`.
 
 ## Changelog
+#### Varsion 0.1.1
+* Client-side now uses Backbone for views (all one of them).
+* Server is now more modular, which should make future improvements easier.
+* Lots of small improvements including...
+  * Image and URL replacement works better
+  * Chat actually scrolls to the bottom when images are inserted
+  * Chat area is bigger
+  * Sass! Modular CSS but also theming is now a lot easier
+
 #### Version 0.1.0
 * We're just going to pretend this is the first version.
 * Basic chat functionality setup.
