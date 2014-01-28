@@ -165,6 +165,7 @@ define([
 
                 renderMessage : function (message) {
                     var text       = message.split(' '),
+                        audioRegex = new RegExp(/^(https?).*(?:wav|mp4|mp3)$/ig),
                         imgRegex   = new RegExp(/\b[A-Za-z0-9:_\/\.\-\+]+(\.gif|\.jpg|\.png)$\b/g),
                         urlRegex   = new RegExp(/\b(^http|www)+[A-Za-z0-9\/\.:]+(?!\.gif|\.jpg|\.png)$\b/g),
                         emoteRegex = new RegExp(/^((&lt;)|[>:;=8b])+[-']?([()\[\]\/\\\|bdop3\{\}><]|(&lt;))$/i),
@@ -173,6 +174,7 @@ define([
 
                     $(text).each(function() {
                         tmp = this;
+                        tmp = tmp.replace(audioRegex, '<audio autoplay="autoplay" controls="controls"><source src="$&"/></audio>');
                         tmp = tmp.replace(imgRegex, '<img src="$&" />');
                         tmp = tmp.replace(urlRegex, '<a href="$&" target="_blank">$&</a>');
                         tmp = tmp.replace(emoteRegex, '<span class="emote">$&</span>');
