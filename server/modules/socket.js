@@ -44,15 +44,15 @@ exports.init = function(server) {
         socket.emit('message', messages);
 
         socket.on('send', function (data) {
-            var message  = data.message === 'refresh' ? '<script>window.location.reload(true)</script>' : data.message.replace(/</g, '&lt;'),
-                username =  data.username.replace(/</g, '&lt;'),
+            var message  = data.message.replace(/</g, '&lt;'),
+                username = data.username.replace(/</g, '&lt;'),
                 toSend   = {
                     username  : username,
                     message   : message,
                     timestamp : methods.getTime()
                 };
 
-            if (data.message !== 'refresh') messages.push(toSend);
+            if (data.message !== 'alert update') messages.push(toSend);
             if (messages.length === 11) messages.shift();
 
             io.sockets.emit('message', toSend);

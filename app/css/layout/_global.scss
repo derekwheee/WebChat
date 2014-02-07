@@ -1,4 +1,6 @@
-* {
+*,
+*:before,
+*:after {
     @include box-sizing(border-box);
 }
 
@@ -35,7 +37,7 @@ h1 {
     @include transition (margin 0.5s);
 
     @extend %t-heading-bold;
-    
+
     &:hover {
       margin: -0.3em 0 0 0;
     }

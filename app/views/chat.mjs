@@ -12,9 +12,11 @@
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
     </head>
     <body>
+        <div class="alert update">Things have changed. Refresh your browser</div>
         <div class="container">
             <h1>Web Chat</h1>
-            <div class="chat-container"></div>
+            <div class="chat-container">
+            </div>
 
             <div class="controls">
                 <input type="text" id="name" placeholder="name">

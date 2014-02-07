@@ -107,10 +107,20 @@ define([
                     }
                 },
 
+                showAlert : function (message) {
+                    $('.alert').attr('class', message);
+                },
+
                 appendMessages : function (data) {
                     var message, img;
 
                     if (data.hasOwnProperty('message')) {
+
+                        if (data.message === 'alert update') {
+                            CHAT.methods.showAlert(data.message);
+                            return false;
+                        }
+
                         message = CHAT.methods.renderMessage(data.message);
 
                         CHAT.$container.append('<div><strong>' + data.username + '</strong>' + message + '<time>' + data.timestamp + '</time></div>');
