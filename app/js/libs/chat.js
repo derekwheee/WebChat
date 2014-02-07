@@ -78,7 +78,7 @@ define([
                     if (CHAT.Notifications.checkPermission() === 0) {
                         CHAT.$notify.remove();
                     }
-                    $('#notify, #send').on('click', function () {
+                    $('body').on('click', '#notify, #send', function () {
                         if (CHAT.Notifications.checkPermission() === 0) { // 0 is PERMISSION_ALLOWED
                             CHAT.$notify.remove();
                         } else {
