@@ -1,7 +1,7 @@
 requirejs.config({
-    
+
     deps : ['app/main'],
-    
+
     paths: {
         // dependencies
         jquery     : '/vendor/jquery',
@@ -11,6 +11,7 @@ requirejs.config({
         // plugins
         mustache   : '/vendor/mustache',
         text       : '/vendor/text',
+        favico     : '/vendor/favico',
         // libs
         helpers    : 'libs/helpers',
         chat       : 'libs/chat'

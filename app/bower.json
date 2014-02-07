@@ -23,6 +23,7 @@
     "modernizr": "~2.7.1",
     "requirejs": "~2.1.10",
     "jquery": "1.10.2",
-    "bourbon": "~3.1.8"
+    "bourbon": "~3.1.8",
+    "favico.js": "~0.3.4"
   }
 }

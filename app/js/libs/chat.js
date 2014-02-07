@@ -1,7 +1,8 @@
 define([
     'jquery',
-    'socketio'
-],  function($, io){
+    'socketio',
+    'favico'
+],  function($, io, Favico){
 
     var loadChat = function () {
         var CHAT = {
@@ -16,6 +17,8 @@ define([
             $notify       : $('#notify'),
             $container    : $('.chat-container'),
             $users        : $('.users'),
+            pageTitle     : document.title,
+            newMessages   : 0,
             currentUser   : {
                 id      : null,
                 name    : null,
@@ -24,7 +27,9 @@ define([
 
             init : function () {
 
-                var _this = CHAT;
+                var _this         = CHAT;
+
+                _this.favicon = new Favico();
 
                 // Get permission for notifications
                 if (_this.Notifications) {
@@ -50,6 +55,8 @@ define([
                 _this.socket.on('message', _this.methods.appendMessages);
 
                 _this.$send.on('click', _this.methods.sendMessage);
+
+                window.onfocus = _this.methods.resetTitleNotifications;
 
                 _this.$message.keyup(function(event){
                     if(event.keyCode == 13){
@@ -78,6 +85,14 @@ define([
                             CHAT.Notifications.requestPermission();
                         }
                     });
+                },
+
+                resetTitleNotifications : function () {
+                    clearInterval(CHAT.titleFlash);
+                    document.title = CHAT.pageTitle;
+
+                    CHAT.newMessages = 0;
+                    CHAT.favicon.reset();
                 },
 
                 updateUserList : function (users) {
@@ -145,6 +160,23 @@ define([
                             notifyCancel = setTimeout(function() {
                                 CHAT.notification.cancel();
                             }, 3000);
+                        }
+
+                        if (!document.hasFocus()) {
+                            // Change page title
+                            clearInterval(CHAT.titleFlash);
+
+                            CHAT.titleFlash = setInterval(function () {
+                                if (document.title === CHAT.pageTitle) {
+                                    document.title = "New messages await!";
+                                } else {
+                                    document.title = CHAT.pageTitle;
+                                }
+                            }, 1000);
+
+                            // Increment favicon badge
+                            CHAT.newMessages++;
+                            CHAT.favicon.badge(CHAT.newMessages);
                         }
 
                     }
