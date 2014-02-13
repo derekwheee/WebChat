@@ -15,7 +15,7 @@ define([
             $message      : $('#message'),
             $send         : $('#send'),
             $notify       : $('#notify'),
-            $container    : $('.chat-container'),
+            $container    : $('#chat-container'),
             $users        : $('.users'),
             pageTitle     : document.title,
             newMessages   : 0,
