@@ -22,7 +22,6 @@
     }
 
     div {
-        position: relative;
         padding: 0.5em 5em 0.5em 2em;
         background: inherit;
         white-space: pre-wrap;
@@ -37,6 +36,7 @@
         right: 2em;
         opacity: 0.5;
         color: $primary;
+        float: right;
         @include transition (opacity 0.25s);
     }
 
