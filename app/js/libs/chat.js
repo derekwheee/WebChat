@@ -7,7 +7,7 @@ define([
     var loadChat = function () {
         var CHAT = {
 
-            socket        : io.connect('http://localhost:3700'),
+            socket        : io.connect('http://' + location.host),
             notify        : {},
             notification  : {},
             Notifications : window.Notifications || window.webkitNotifications || window.mozNotifications,
